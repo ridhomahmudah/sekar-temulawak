@@ -2,7 +2,7 @@
     <div>
       <h1>Jumlah Klik: {{ count }}</h1>
       <button @click="increment">Tambah Klik</button>
-      <compB :count />
+      <compB :count="count" />
     </div>
   </template>
   

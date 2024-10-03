@@ -1,5 +1,42 @@
 <script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+      showPassword: false,
+    };
+  },
+  methods: {
+    login() {
+      const loginData = {
+        username: this.username,
+        password: this.password,
+      };
+
+      axios
+        .post('/login', loginData)
+        .then(response => {
+          // Handle successful login, e.g., store the token or redirect
+          console.log('Login successful', response.data);
+        })
+        .catch(error => {
+          // Handle failed login
+          console.error('Login failed', error.response.data);
+        });
+    },
+
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+      const passwordField = document.getElementById('password');
+      passwordField.type = this.showPassword ? 'text' : 'password';
+    }
+  }
+};
 </script>
+
 
 <template>
   <div id="containerRegister" class="flex">
@@ -44,6 +81,7 @@
               id="show-password"
               type="checkbox"
               class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+              @click="togglePassword"
             />
             <label for="show-password" class="ml-2 font-medium text-gray-900"
               >Tampilkan Password</label
@@ -69,7 +107,7 @@
 
         <!-- Tombol Masuk dengan Google -->
         <button
-          type="button"
+          @click="googleLogin"
           class="w-full py-2 bg-white border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
           <img
@@ -104,6 +142,6 @@
 
 <style scoped>
 #containerRegister {
-  height: 100vh
+  height: 100vh;
 }
 </style>

@@ -16,10 +16,14 @@ class Pengguna extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'pengguna';
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'Nama',
+        'Email',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
     ];
 
     /**

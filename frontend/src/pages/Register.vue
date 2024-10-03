@@ -1,9 +1,63 @@
 <script>
+import axios from "axios";
 
+export default {
+    data() {
+        return {
+            name: "",
+            email: "",
+            password: "",
+            showPassword: false,
+            error: null
+        };
+    },
+    methods: {
+        register() {
+            axios.defaults.withCredentials = true;
+            const registerData = {
+                name: this.name,
+                email: this.email,
+                password: this.password,
+            };
+
+            axios
+                .post("/register", registerData)
+                .then((response) => {
+                    console.log("Register berhasil", response.data);
+                    // Arahkan pengguna atau lakukan tindakan lanjutan
+                })
+                .catch((error) => {
+                    console.error("Register gagal", error.response?.data || error.message);
+                    this.error = "Registrasi gagal. Silakan coba lagi.";
+                });
+        },
+
+        registerWithGoogle() {
+            axios.defaults.withCredentials = true;
+            axios
+                .get("http://127.0.0.1:8000/auth/google")
+                .then((response) => {
+                    if (response.data && response.data.redirect_url) {
+                        window.location.href = response.data.redirect_url;
+                    } else {
+                        throw new Error("Respons tidak valid dari server");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Google login gagal", error.response?.data || error.message);
+                    this.error = "Gagal memulai login Google. Silakan coba lagi.";
+                });
+        },
+
+        togglePassword() {
+            this.showPassword = !this.showPassword;
+        }
+    },
+};
 </script>
 
 <template>
-    <div  id="containerRegister" class="flex">
+    <div id="containerRegister" class="flex">
         <!-- Sisi Kiri -->
         <div class="w-1/2 relative bg-cover bg-center"
             style="background-image: url('/public/img/gambar-login-regis.jpg')">
@@ -24,19 +78,20 @@
         <!-- Sisi Kanan -->
         <div class="w-1/2 flex flex-col items-center justify-center bg-gray-100 px-8">
             <h2 class="text-4xl font-bold text-green-900 mb-8">Pendaftaran</h2>
-            <form class="w-full max-w-md space-y-4">
+            <form class="w-full max-w-md space-y-4" @submit.prevent="register">
+                
                 <!-- Input Username -->
                 <div>
-                    <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                    <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
                     <input type="text" id="username"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
-                        placeholder="Masukkan Username" required />
+                        placeholder="Masukkan Nama" required />
                 </div>
 
                 <!-- Input Email -->
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                    <input type="email" id="email"
+                    <input type="email" id="email" v-model="email"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
                         placeholder="Masukkan Email" required />
                 </div>
@@ -44,7 +99,7 @@
                 <!-- Input Password -->
                 <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
-                    <input type="password" id="password"
+                    <input type="password" id="password" v-model="password"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
                         placeholder="Masukkan Password" required />
                 </div>
@@ -74,7 +129,7 @@
                 </div>
 
                 <!-- Tombol Daftar dengan Google -->
-                <button type="button"
+                <button type="button" @click="registerWithGoogle"
                     class="w-full py-2 bg-white border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300">
                     <img src="/public/img/google-logo.svg" class="w-6 h-6 mr-2" alt="Google" />
                     Daftar dengan Google
@@ -85,7 +140,7 @@
 </template>
 
 <style scoped>
-    #containerRegister{
-        height: 100vh
-    }
+#containerRegister {
+    height: 100vh;
+}
 </style>

@@ -10,7 +10,21 @@ export default{
     About,
     ProdukSection,
     ArtikelSection,
-  }
+  },
+  data() {
+        return {
+            isLoggedIn: false,
+        };
+    },
+    created() {
+        this.checkLoginStatus();
+    },
+    methods: {
+        checkLoginStatus() {
+            const queryParams = new URLSearchParams(window.location.search);
+            this.isLoggedIn = queryParams.get('loggedIn') === 'true';
+        },
+    }
 }
 </script>
 
@@ -29,5 +43,9 @@ export default{
 
     <!-- Keranjang -->
     <section>
+      <div v-if="isLoggedIn">
+            <h2>Welcome back!</h2>
+            <!-- Additional content for logged-in users -->
+        </div>
     </section>
 </template>

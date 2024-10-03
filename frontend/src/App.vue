@@ -4,7 +4,7 @@ import CompB from './components/compB.vue';
 import Navbar from './components/Navbar.vue';
 </script>
 <template>
-  <!-- <Navbar/>
-  <RouterView/> -->
-  <CompA/>
+  <Navbar/>
+  <RouterView/>
+  <!-- <CompA/> -->
 </template>
