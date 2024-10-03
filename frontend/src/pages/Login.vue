@@ -1,42 +1,60 @@
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
+  // Misalnya di mounted lifecycle hook di halaman login-success
+  mounted() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("tkn");
+
+    if (token) {
+      // Simpan token di local storage atau langsung gunakan
+      localStorage.setItem("token", token);
+      // Lakukan tindakan setelah berhasil login
+      this.$router.push("/"); // Redirect ke halaman lain setelah login
+    } else {
+      // Tampilkan pesan error atau lakukan tindakan lain jika token tidak ditemukan
+      console.error("Token tidak ditemukan");
+    }
+  },
+
   data() {
     return {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       showPassword: false,
     };
   },
   methods: {
-    login() {
-      const loginData = {
-        username: this.username,
-        password: this.password,
-      };
-
+    loginWithGoogle() {
       axios
-        .post('/login', loginData)
-        .then(response => {
-          // Handle successful login, e.g., store the token or redirect
-          console.log('Login successful', response.data);
+        .get("http://localhost:8000/auth/google")
+        .then((response) => {
+          // Simpan user ke localStorage atau store Vuex
+          let redirect_url = response.data.redirect_url;
+          window.location.href = redirect_url;
+
+          // Redirect ke halaman utama atau dashboard
+          // router.push('/dashboard');
         })
-        .catch(error => {
-          // Handle failed login
-          console.error('Login failed', error.response.data);
+        .then((response) => {
+          let token = JSON.stringify(response.data);
+          console.log(token);
+        })
+        .catch((error) => {
+          console.error("Google login failed", error);
+          router.push("/login");
         });
     },
 
     togglePassword() {
       this.showPassword = !this.showPassword;
-      const passwordField = document.getElementById('password');
-      passwordField.type = this.showPassword ? 'text' : 'password';
-    }
-  }
+      const passwordField = document.getElementById("password");
+      passwordField.type = this.showPassword ? "text" : "password";
+    },
+  },
 };
 </script>
-
 
 <template>
   <div id="containerRegister" class="flex">
@@ -45,7 +63,7 @@ export default {
       class="w-1/2 flex flex-col items-center justify-center bg-gray-100 px-8"
     >
       <h2 class="text-4xl font-bold text-green-900 mb-8">Masuk</h2>
-      <form class="w-full max-w-md space-y-4">
+      <form class="w-full max-w-md space-y-4" я>
         <!-- Input Username -->
         <div>
           <label for="username" class="block mb-2 font-medium text-gray-900"
@@ -107,7 +125,7 @@ export default {
 
         <!-- Tombol Masuk dengan Google -->
         <button
-          @click="googleLogin"
+          @click="loginWithGoogle"
           class="w-full py-2 bg-white border border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
         >
           <img

@@ -29,6 +29,13 @@ export default{
 </script>
 
 <template>
+    <!-- Keranjang -->
+    <section>
+      <div v-if="isLoggedIn">
+            <h2>Welcome back!</h2>
+            <!-- Additional content for logged-in users -->
+        </div>
+    </section>
     <!-- Home / Header -->
     <Hero/>
 
@@ -41,11 +48,5 @@ export default{
     <!-- Tentang Kami -->
     <About/>
 
-    <!-- Keranjang -->
-    <section>
-      <div v-if="isLoggedIn">
-            <h2>Welcome back!</h2>
-            <!-- Additional content for logged-in users -->
-        </div>
-    </section>
+    
 </template>
