@@ -1,16 +1,65 @@
+<script>
+import { useAuthStore } from "@/storage/authStore";
+import { computed } from "vue";
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const router = useRouter();
+    const isLoggedIn = localStorage.getItem('lgn');
+    const nama = localStorage.getItem('nama');
+    const logout = () => {
+      // Hapus data pengguna dari localStorage
+      localStorage.removeItem('lgn');
+      localStorage.removeItem('nama');
+
+      // Redirect ke halaman login atau halaman utama
+      router.push('/login'); // Ganti sesuai dengan rute yang Anda inginkan
+    };
+
+    const alertLogin = () => {
+      alert('Silahkan Login Terlebih Dahulu !!')
+    }
+
+    return {isLoggedIn , nama, logout, alertLogin};
+  },
+};
+</script>
+
 <template>
-    <nav class="fixed z-10 flex justify-between h-16 bg-white drop-shadow-xl w-full items-center px-36 mb-16">
-        <img src="/public/img/logo-sekar.png" class="w-20 self-start" alt="Logo Sekar Temulawak" />
-        <div class="flex gap-8">
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/landingproduk">Produk</RouterLink>
-            <RouterLink to="/landingartikel">Artikel</RouterLink>
-            <RouterLink to="/landingabout">Tentang Kami</RouterLink>
-            <RouterLink to="/keranjang">Keranjang</RouterLink>
-        </div>
-        <div>
-            <RouterLink to="/login" class="outline outline-2 outline-primaryColor px-4 py-2 text-center mr-4 rounded-md">Masuk</RouterLink>
-            <RouterLink to="/register" class="px-4 py-2 text-center text-white bg-primaryColor rounded-md">Daftar</RouterLink>
-        </div>
-    </nav>
+  <nav
+    class="fixed z-10 flex justify-between h-16 bg-white drop-shadow-xl w-full items-center px-36"
+  >
+    <img
+      src="/public/img/logo-sekar.png"
+      class="w-20 self-start"
+      alt="Logo Sekar Temulawak"
+    />
+    <div class="flex gap-8">
+      <RouterLink to="/">Home</RouterLink>
+      <a href="/#produk">Produk</a>
+      <a href="/#artikel">Artikel</a>
+      <a href="/#about">Tentang Kami</a>
+      <RouterLink v-if="isLoggedIn" to="/keranjang" >Keranjang</RouterLink>
+      <RouterLink v-if="!isLoggedIn" to="/login" @click="alertLogin" >Keranjang</RouterLink>
+    </div>
+    <div>
+      <RouterLink
+        v-if="!isLoggedIn"
+        to="/login"
+        class="outline outline-2 outline-primaryColor px-4 py-2 text-center mr-4 rounded-md"
+        >Masuk</RouterLink
+      >
+      <RouterLink
+        v-if="!isLoggedIn"
+        to="/register"
+        class="px-4 py-2 text-center text-white bg-primaryColor rounded-md"
+        >Daftar</RouterLink
+      >
+      <span v-else>Welcome, {{ nama }}</span>
+      <button v-if="isLoggedIn" @click="logout" class="ml-4 px-4 py-2 text-center text-white bg-red-500 rounded-md">
+        Logout
+      </button>
+    </div>
+  </nav>
 </template>

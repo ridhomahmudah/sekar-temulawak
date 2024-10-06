@@ -1,6 +1,6 @@
 <template>
   <!-- Tentang Kami -->
-  <section class="py-12 bg-thirdColor text-white">
+  <section class="py-28 bg-thirdColor text-white" id="about">
     <div class="">
       <h2 class="text-5xl font-semibold mb-8 text-center">Tentang Kami</h2>
       <div class="flex justify-between items-center flex-col">
@@ -16,23 +16,25 @@
           >
           </iframe>
         </div>
-        <div class="flex gap-10">
-          <div class="flex-col">
-            <h3 class="text-xl font-semibold mb-4">Halaman</h3>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
+        <div class="flex gap-10 w-full px-72 justify-between">
+          <div class="flex-col mt-16">
+            <h3 class="text-2xl font-semibold mb-4">Halaman</h3>
+            <p class="font-light">Home</p>
+            <p class="font-light">Produk</p>
+            <p class="font-light">Artikel</p>
+            <p class="font-light">Tentang Kami</p>
+            <p class="font-light">Keranjang</p>
           </div>
-          <div class="flex-col">
-            <h3 class="text-xl font-semibold mb-4">Alamat</h3>
-            <p>Jl. KH Agus Salim, Desa Sumber, Batu, Jawa Timur, Indonesia</p>
+          <div class="flex-col mt-16">
+            <h3 class="text-2xl font-semibold mb-4">Alamat</h3>
+            <p class="font-light">Jl. KH Agus Salim, Desa Sumber, Batu, Jawa Timur, Indonesia</p>
           </div>
-          <div class="flex-col">
-            <h3 class="text-xl font-semibold mb-4">Kontak</h3>
-            <p>Email</p>
-            <p>No. Hp</p>
-            <p>Instagram</p>
-            <p>Facebook</p>
+          <div class="flex-col mt-16">
+            <h3 class="text-2xl font-semibold mb-4">Kontak</h3>
+            <p class="font-light">Email</p>
+            <p class="font-light">No. Hp</p>
+            <p class="font-light">Instagram</p>
+            <p class="font-light">Facebook</p>
           </div>
         </div>
       </div>

@@ -1,23 +1,8 @@
 <script>
+import { useAuthStore } from "@/storage/authStore";
 import axios from "axios";
 
 export default {
-  // Misalnya di mounted lifecycle hook di halaman login-success
-  mounted() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("tkn");
-
-    if (token) {
-      // Simpan token di local storage atau langsung gunakan
-      localStorage.setItem("token", token);
-      // Lakukan tindakan setelah berhasil login
-      this.$router.push("/"); // Redirect ke halaman lain setelah login
-    } else {
-      // Tampilkan pesan error atau lakukan tindakan lain jika token tidak ditemukan
-      console.error("Token tidak ditemukan");
-    }
-  },
-
   data() {
     return {
       username: "",
@@ -28,7 +13,7 @@ export default {
   methods: {
     loginWithGoogle() {
       axios
-        .get("http://localhost:8000/auth/google")
+        .get("http://localhost:8000/auth/google/redirect")
         .then((response) => {
           // Simpan user ke localStorage atau store Vuex
           let redirect_url = response.data.redirect_url;
@@ -36,10 +21,6 @@ export default {
 
           // Redirect ke halaman utama atau dashboard
           // router.push('/dashboard');
-        })
-        .then((response) => {
-          let token = JSON.stringify(response.data);
-          console.log(token);
         })
         .catch((error) => {
           console.error("Google login failed", error);

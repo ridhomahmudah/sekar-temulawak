@@ -1,6 +1,7 @@
 <template>
-    <section>
-        <h1 class="text-5xl font-semibold text-primaryColor">Artikel Edukasi</h1>
+    <section id="artikel">
+        <h1 class="text-5xl font-semibold text-primaryColor text-center mt-28">Artikel Edukasi</h1>
+        <h3 class="text-xl font-semibold text-zinc-600 text-center mt-4 mb-8">Berikut Beberapa Artikel Yang Wajib Anda Ketahui</h3>
         <swiper-container
       :slidesPerView="4"
       :spaceBetween="40"
@@ -8,11 +9,11 @@
       :pagination="{
         clickable: true,
       }"
-      class="w-full"
+      class="w-full px-14"
       ref="swiper"
     >
       <swiper-slide v-for="n in 10">
-        <div id="card" class="w-[320px] h-[390px] bg-white rounded-3xl drop-shadow-2xl">
+        <div id="card" class="w-[320px] h-[390px] bg-white rounded-3xl drop-shadow-2xl border-zinc-300 border">
           <img
             src="/public/img/produkpng.png"
             alt=""

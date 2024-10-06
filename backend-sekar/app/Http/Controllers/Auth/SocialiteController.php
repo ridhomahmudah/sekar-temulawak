@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengguna;
-use Auth;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
 
 class SocialiteController extends Controller
 {
@@ -24,29 +24,46 @@ class SocialiteController extends Controller
         }
     }
 
-    public function callback()
+    public function callback(Request $request)
     {
-
-
         Log::info('Masuk ke callback Google');
-        // Log the incoming request state
-        Log::info('Request State: ' . request('state'));
-        $socialUser = Socialite::driver('google')->stateless()->user();
-        $user = Pengguna::where('google_id', $socialUser->id)->first();
-        Log::info('Pengguna berhasil diambil: ', (array) $socialUser);
+        $authCode = $request->query('code');
 
-        if(!$user){
-            Pengguna::updateOrCreate([
-                'google_id' => $socialUser->id,
-                'Nama' => $socialUser->name,
-                'Email' => $socialUser->email,
+        Log::info('Received auth code: ' . $authCode);
+        Log::info('Request State: ' . request('state'));
+        Log::info('Request Code: ' . request('code'));
+
+        $socialUser = Socialite::driver('google')->stateless()->user();
+
+        // Update atau buat pengguna baru
+        if (
+            Pengguna::where('google_id', $socialUser->getId())->exists()
+        ) {
+            Pengguna::where('google_id', $socialUser->getId())->update([
+                'Nama' => $socialUser->getName(),
+                'Email' => $socialUser->getEmail(),
                 'google_token' => $socialUser->token,
                 'google_refresh_token' => $socialUser->refreshToken,
             ]);
+        } else {
+            Pengguna::create([
+                'Nama' => $socialUser->getName(),
+                'Email' => $socialUser->getEmail(),
+                'google_id' => $socialUser->getId(),
+                'google_token' => $socialUser->token,
+                'google_refresh_token' => $socialUser->refreshtoken,
+            ]);
         }
+        $cookie = cookie('athtkn', $socialUser->token, 60, null, null, true, true); // HTTP-only dan secure
 
-        $frontendUrl = 'http://localhost:5173/';
-        $token = $socialUser->token;
-        return redirect($frontendUrl . '?tkn=' . $token);
+        return response()->json([
+            'Nama' => $socialUser->getName(),
+            'Email' => $socialUser->getEmail(),
+            'google_id' => $socialUser->getId(),
+            'google_token' => $socialUser->token,
+            'login' => true,
+        ])->cookie($cookie);
+
     }
 }
+
