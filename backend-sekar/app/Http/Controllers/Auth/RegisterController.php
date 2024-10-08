@@ -4,37 +4,39 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengguna;
+use Hash;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    public function redirect()
-    {
-        return response()->json(['redirect_url' => Socialite::driver('google')->redirect()->getTargetUrl()]);
-    }
+    public function register(Request $request){
+        $validator = Validator::make($request->all(), [
+            'Nama' => 'required|string|max:255',
+            'Email' => 'required|string|email|max:255|unique:pengguna', // memastikan email unik
+            'Password' => 'required|string|min:8|confirmed', // memastikan password minimal 8 karakter dan konfirmasi
+        ]);
 
-    public function callback(Request $request)
-    {
-        try {
-            $socialUser = Socialite::driver($request)->user();
-            
-            $user = Pengguna::updateOrCreate([
-                'google_id' => $socialUser->id,
-            ], [
-                'name' => $socialUser->name,
-                'email' => $socialUser->email,
-                'google_token' => $socialUser->token,
-                'google_refresh_token' => $socialUser->refreshToken,
-            ]);
-
-            Auth::login($user);
-
-            return redirect('/dashboard');
-        } catch (\Exception $e) {
-            return redirect('/login')->with('error', 'Google authentication failed');
+        // Jika validasi gagal, kembalikan respon error
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        $pengguna = Pengguna::create([
+            'Nama' => $request->Nama,
+            'Email' => $request->Email,
+            'Password' => Hash::make($request->Password), // Hashing password
+        ]);
+
+        // Buat token untuk user (jika menggunakan token)
+        $token = $pengguna->createToken('auth_token')->plainTextToken;
+
+        // Kembalikan respon sukses beserta data user dan token
+        return response()->json([
+            'Nama' => $pengguna->Nama,
+            'Email' => $pengguna->Email,
+            'token' => $token,
+        ], 201);
     }
 }
 ?>

@@ -1,12 +1,11 @@
 // src/storage/authStore.js
 import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { computed } from "vue";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: useLocalStorage('nama', 'kosong'),
-    token: useLocalStorage('tkn', null), // Pastikan token di sini
+    token: useLocalStorage('tkn', null), 
   }),
   getters: {
     isAuthenticated: (state) => {
@@ -18,13 +17,10 @@ export const useAuthStore = defineStore("auth", {
   },
   actions: {
     setToken(token) {
-      this.token = token; // Mengupdate token secara reaktif
-    },
-    clearToken() {
-      this.token = null; // Menghapus token
+      this.token = token; 
     },
     updateUser(name) {
-      this.user = name; // Mengupdate user dengan nama baru
+      this.user = name;
     },
   }
 });

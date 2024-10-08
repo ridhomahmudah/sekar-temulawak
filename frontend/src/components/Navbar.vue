@@ -20,9 +20,6 @@ export default {
       localStorage.removeItem('lgn'); // Menghapus nama
       localStorage.removeItem('user'); // Menghapus nama
 
-      // Update status di authStore
-      authStore.clearToken();
-
       // Redirect ke halaman login atau halaman utama
       router.push('/login'); // Ganti sesuai dengan rute yang Anda inginkan
     };

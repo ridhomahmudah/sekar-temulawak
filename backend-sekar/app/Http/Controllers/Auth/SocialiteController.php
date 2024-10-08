@@ -15,6 +15,7 @@ class SocialiteController extends Controller
         try {
             Log::info('Memulai redirect Google');
             $url = Socialite::driver('google')->redirect()->getTargetUrl();
+
             Log::info('URL redirect Google: ' . $url);
             Log::info('State parameter: ' . session('state'));
             return response()->json(['redirect_url' => $url]);
@@ -27,6 +28,7 @@ class SocialiteController extends Controller
     public function callback(Request $request)
     {
         Log::info('Masuk ke callback Google');
+        
         $authCode = $request->query('code');
 
         Log::info('Received auth code: ' . $authCode);

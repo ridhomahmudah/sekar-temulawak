@@ -21,6 +21,7 @@ class Pengguna extends Authenticatable
     protected $fillable = [
         'Nama',
         'Email',
+        'Password',
         'google_id',
         'google_token',
         'google_refresh_token',

@@ -1,5 +1,4 @@
 <script>
-import { useAuthStore } from "@/storage/authStore";
 import axios from "axios";
 
 export default {
@@ -15,12 +14,13 @@ export default {
       axios
         .get("http://localhost:8000/auth/google/redirect")
         .then((response) => {
-          // Simpan user ke localStorage atau store Vuex
+
+          //ambil redirect url dari response api
           let redirect_url = response.data.redirect_url;
+
+          //ganti url search di browser ke data redirecturl api
           window.location.href = redirect_url;
 
-          // Redirect ke halaman utama atau dashboard
-          // router.push('/dashboard');
         })
         .catch((error) => {
           console.error("Google login failed", error);
