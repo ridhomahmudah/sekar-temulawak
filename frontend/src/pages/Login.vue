@@ -23,6 +23,7 @@ export default {
 
         })
         .catch((error) => {
+          alert(`Gagal terhubung ke server\n${error}`);
           console.error("Google login failed", error);
           router.push("/login");
         });
