@@ -48,13 +48,13 @@ export const useCartStore = defineStore('cart', {
     // Menambah kuantitas produk
     increment(produk) {
       produk.jumlah++;
-      this.updateProduk(produk);
+      this.updateQuantity(produk);
     },
     // Mengurangi kuantitas produk
     decrement(produk) {
       if (produk.jumlah > 1) {
         produk.jumlah--;
-        this.updateProduk(produk);
+        this.updateQuantity(produk);
       }
     },
     // Memperbarui kuantitas produk secara manual
@@ -98,6 +98,14 @@ export const useCartStore = defineStore('cart', {
         return total;
       }, 0);
     },
+
+    //mengambil products yang dipilih
+    getSelectedProducts() {
+      return this.produkList.filter(produk =>
+        this.selectedProducts.includes(produk.id_produk)
+      );
+    },
+
     // Menambahkan pesanan baru
     async checkout(metodePembayaran) {
       try {
