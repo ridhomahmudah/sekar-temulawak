@@ -12,6 +12,7 @@ class CreateKeranjangTable extends Migration
             $table->integer('jumlah');
             $table->unsignedBigInteger('id_pelanggan');
             $table->unsignedBigInteger('id_produk');
+            $table->timestamps(6);
             $table->foreign('id_pelanggan')->references('id_pengguna')->on('pengguna');
             $table->foreign('id_produk')->references('id_produk')->on('produk');
         });

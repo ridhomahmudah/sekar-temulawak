@@ -19,10 +19,12 @@ export default {
         localStorage.setItem('nama', response.data.Nama);
         localStorage.setItem('tkn', response.data.google_token);
         localStorage.setItem('lgn', response.data.login);
+        localStorage.setItem('id', response.data.id);
 
         // Menggunakan action untuk memperbarui token dan user
         authStore.updateUser(response.data.Nama);
         authStore.setToken(response.data.google_token);
+        authStore.updateId(response.data.id);
 
         // Redirect ke halaman utama atau dashboard
         router.push('/');

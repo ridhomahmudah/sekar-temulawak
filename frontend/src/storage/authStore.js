@@ -2,10 +2,12 @@
 import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
 
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: useLocalStorage('nama', 'kosong'),
+    user: useLocalStorage('nama', null),
     token: useLocalStorage('tkn', null), 
+    id: useLocalStorage('id', null), 
   }),
   getters: {
     isAuthenticated: (state) => {
@@ -22,5 +24,9 @@ export const useAuthStore = defineStore("auth", {
     updateUser(name) {
       this.user = name;
     },
+    updateId(id){
+      this.id = id;
+    }
   }
 });
+

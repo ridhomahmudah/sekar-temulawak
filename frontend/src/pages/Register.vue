@@ -1,4 +1,5 @@
 <script>
+import router from "@/router/Route.vue";
 import axios from "axios";
 
 export default {
@@ -12,17 +13,27 @@ export default {
     };
   },
   methods: {
+    getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    },
+
     register() {
       axios.defaults.withCredentials = true;
       const registerData = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
+        Email: this.email,
+        Nama: this.name,
+        Password: this.password,
       };
-
+      console.log(registerData);
       axios
-        .post("/register", registerData)
+        .post("http://localhost:8000/register", registerData, {
+          withCredentials: true,
+        })
         .then((response) => {
+          alert('Register berhasil, silahkan Login');
+          router.push('/login')
           console.log("Register berhasil", response.data);
         })
         .catch((error) => {
@@ -64,7 +75,7 @@ export default {
 </script>
 
 <template>
-  <div id="containerRegister" class="flex">
+  <div id="containerRegister" class="flex" style="height: 100vh">
     <!-- Sisi Kiri -->
     <div
       class="w-1/2 relative bg-cover bg-center"
@@ -88,9 +99,7 @@ export default {
     </div>
 
     <!-- Sisi Kanan -->
-    <div
-      class="w-1/2 flex flex-col items-center my-auto bg-white"
-    >
+    <div class="w-1/2 flex flex-col items-center my-auto bg-white">
       <h2 class="text-4xl font-bold text-green-900 mb-8">Pendaftaran</h2>
       <form class="w-full max-w-md space-y-4" @submit.prevent="register">
         <!-- Input Username -->
@@ -102,7 +111,8 @@ export default {
           >
           <input
             type="text"
-            id="username"
+            id="name"
+            v-model="name"
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
             placeholder="Masukkan Nama"
             required
@@ -143,23 +153,6 @@ export default {
           />
         </div>
 
-        <!-- Konfirmasi Password -->
-        <div>
-          <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-gray-900"
-            >Password</label
-          >
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
-            placeholder="Masukkan Password"
-            required
-          />
-        </div>
-
         <!-- Checkbox Tampilkan Password & Lupa Password -->
         <div class="flex justify-between items-center">
           <div class="flex items-center">
@@ -182,6 +175,7 @@ export default {
 
         <!-- Tombol Daftar -->
         <button
+          @click.prevent="register"
           type="submit"
           class="w-full py-2 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
@@ -212,9 +206,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style scoped>
-#containerRegister {
-  height: 100vh;
-}
-</style>

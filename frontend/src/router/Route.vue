@@ -1,17 +1,21 @@
 <script>
 import { createWebHistory, createRouter } from "vue-router";
-import HomePage from "../pages/LandingPage.vue";
-import Login from "../pages/Login.vue";
-import Register from "../pages/Register.vue";
+import HomePage from "@/pages/LandingPage.vue";
+import Login from "@/pages/Login.vue";
+import Register from "@/pages/Register.vue";
 import LoginCallback from "@/components/LoginCallback.vue";
 import Keranjang from "@/pages/Keranjang.vue";
+import BuatPesanan from "@/pages/BuatPesanan.vue";
+import ArtikelDetail from "@/pages/ArtikelDetail.vue"; // Pastikan Anda membuat dan mengimpor komponen ini
 
 const routes = [
-  { path: "/", component: HomePage },
-  { path: "/login", component: Login },
-  { path: "/register", component: Register },
-  { path: "/auth/google/callback", component: LoginCallback },
-  { path: "/keranjang", component: Keranjang },
+  { path: "/", component: HomePage, name: "home" },
+  { path: "/login", component: Login, name: "login" },
+  { path: "/register", component: Register, name: "register" },
+  { path: "/auth/google/callback", component: LoginCallback, name: "login-callback" },
+  { path: "/keranjang", component: Keranjang, name: "keranjang" },
+  { path: "/pesanan", component: BuatPesanan, name: "pesanan" },
+  { path: "/artikel/:id", component: ArtikelDetail, name: "artikel-detail" }, // Route untuk detail artikel
 ];
 
 const router = createRouter({
