@@ -8,11 +8,12 @@ class CreatePesananTable extends Migration
     public function up()
     {
         Schema::create('pesanan', function (Blueprint $table) {
-            $table->id('id_pesanan'); // Menggunakan unsignedBigInteger sebagai tipe id
+            $table->id('id_pesanan');
             $table->date('tanggal');
-            $table->integer('metode');
-            $table->integer('status');
+            $table->integer('metode')->nullable();
+            $table->enum('status', ['PENDING', 'BELUMDIBAYAR', 'SUDAHDIBAYAR', 'DIBATALKAN'])->default('PENDING');
             $table->integer('total_bayar');
+            $table->timestamps();
 
             // Foreign key untuk pelanggan
             $table->unsignedBigInteger('id_pelanggan');
