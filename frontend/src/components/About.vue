@@ -6,7 +6,7 @@
       <div class="flex justify-between items-center flex-col">
         <div class="w-full px-64">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3931.387540469751!2d112.5388577747747!3d-7.876250892893448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6299c69b47179%3A0x5d152ccaa48b911e!2sJalan%20KH%20Agus%20Salim!5e0!3m2!1sid!2sid!4v1695693655269!5m2!1sid!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7905.594798730245!2d111.99307656077487!3d-7.811259482862856!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e785733c316b22b%3A0x2c3e3c462086822c!2sDAKA%20PHONE!5e0!3m2!1sen!2sid!4v1728427587545!5m2!1sen!2sid"
             width="100%"
             height="300"
             frameborder="0"
@@ -27,7 +27,7 @@
           </div>
           <div class="flex-col mt-16">
             <h3 class="text-2xl font-semibold mb-4">Alamat</h3>
-            <p class="font-light">Jl. KH Agus Salim, Desa Sumber, Batu, Jawa Timur, Indonesia</p>
+            <p class="font-light w-96">Jl. KH AGUS SALIN GG II NO. 9, Desa/Kelurahan Songgokerto, Kec. Batu, Kota Batu, Provinsi Jawa Timur</p>
           </div>
           <div class="flex-col mt-16">
             <h3 class="text-2xl font-semibold mb-4">Kontak</h3>

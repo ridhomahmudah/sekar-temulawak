@@ -12,9 +12,9 @@ class RegisterController extends Controller
 {
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
-            'Nama' => 'required|string|max:255',
-            'Email' => 'required|string|email|max:255|unique:pengguna', // memastikan email unik
-            'Password' => 'required|string|min:8|confirmed', // memastikan password minimal 8 karakter dan konfirmasi
+            'Nama' => 'required|string|max:50',
+            'Email' => 'required|string|email|max:60', // memastikan email unik
+            'Password' => 'required|string|min:8', // memastikan password minimal 8 karakter dan konfirmasi
         ]);
 
         // Jika validasi gagal, kembalikan respon error
@@ -29,13 +29,13 @@ class RegisterController extends Controller
         ]);
 
         // Buat token untuk user (jika menggunakan token)
-        $token = $pengguna->createToken('auth_token')->plainTextToken;
+        // $token = $pengguna->createToken('auth_token')->plainTextToken;
 
         // Kembalikan respon sukses beserta data user dan token
         return response()->json([
             'Nama' => $pengguna->Nama,
             'Email' => $pengguna->Email,
-            'token' => $token,
+            // 'token' => $token,
         ], 201);
     }
 }

@@ -1,0 +1,148 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
+class ArtikelSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('artikel')->insert([
+            [
+                'title' => 'Manfaat Temulawak bagi Kesehatan',
+                'body' => 'Temulawak adalah tanaman herbal asli Indonesia yang banyak manfaatnya...',
+                'status' => 1,
+                'tag' => 'kesehatan',
+                'gambar' => 'manfaat_temulawak.jpg',
+                'jumlah_pembaca' => 1200,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Rahasia Kulit Cantik dengan Temulawak',
+                'body' => 'Temulawak juga dapat digunakan untuk perawatan kulit...',
+                'status' => 1,
+                'tag' => 'kecantikan',
+                'gambar' => 'kulit_cantik_temulawak.jpg',
+                'jumlah_pembaca' => 850,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Resep Minuman Herbal Temulawak untuk Daya Tahan Tubuh',
+                'body' => 'Minuman herbal berbahan dasar temulawak sangat baik untuk meningkatkan daya tahan tubuh...',
+                'status' => 1,
+                'tag' => 'resep',
+                'gambar' => 'minuman_temulawak.jpg',
+                'jumlah_pembaca' => 950,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Cara Menanam dan Merawat Temulawak di Rumah',
+                'body' => 'Berikut adalah panduan lengkap untuk menanam temulawak di rumah...',
+                'status' => 1,
+                'tag' => 'pertanian',
+                'gambar' => 'tanam_temulawak.jpg',
+                'jumlah_pembaca' => 450,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Pengobatan Tradisional Menggunakan Temulawak',
+                'body' => 'Temulawak digunakan dalam berbagai pengobatan tradisional...',
+                'status' => 1,
+                'tag' => 'pengobatan',
+                'gambar' => 'pengobatan_tradisional.jpg',
+                'jumlah_pembaca' => 780,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Temulawak sebagai Anti-Inflamasi Alami',
+                'body' => 'Salah satu khasiat utama temulawak adalah sifat anti-inflamasinya...',
+                'status' => 1,
+                'tag' => 'kesehatan',
+                'gambar' => 'anti_inflamasi.jpg',
+                'jumlah_pembaca' => 620,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Efek Samping Mengonsumsi Temulawak secara Berlebihan',
+                'body' => 'Meskipun bermanfaat, konsumsi temulawak berlebihan juga memiliki efek samping...',
+                'status' => 1,
+                'tag' => 'efek_samping',
+                'gambar' => 'efek_samping.jpg',
+                'jumlah_pembaca' => 540,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Temulawak vs Kunyit: Apa Bedanya?',
+                'body' => 'Temulawak dan kunyit sering dianggap sama, namun keduanya memiliki perbedaan...',
+                'status' => 1,
+                'tag' => 'perbandingan',
+                'gambar' => 'temulawak_vs_kunyit.jpg',
+                'jumlah_pembaca' => 980,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Bagaimana Temulawak Membantu Sistem Pencernaan?',
+                'body' => 'Temulawak sangat baik untuk menjaga kesehatan pencernaan...',
+                'status' => 1,
+                'tag' => 'kesehatan',
+                'gambar' => 'temulawak_pencernaan.jpg',
+                'jumlah_pembaca' => 760,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Temulawak dalam Dunia Modern: Penggunaan dan Manfaatnya',
+                'body' => 'Temulawak semakin dikenal dalam dunia modern sebagai bahan alami...',
+                'status' => 1,
+                'tag' => 'modern',
+                'gambar' => 'temulawak_modern.jpg',
+                'jumlah_pembaca' => 840,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Keajaiban Temulawak untuk Mengatasi Nyeri Sendi',
+                'body' => 'Bagi Anda yang mengalami nyeri sendi, temulawak dapat menjadi solusi alami...',
+                'status' => 1,
+                'tag' => 'pengobatan',
+                'gambar' => 'temulawak_sendi.jpg',
+                'jumlah_pembaca' => 640,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'title' => 'Manfaat Temulawak untuk Meningkatkan Nafsu Makan',
+                'body' => 'Temulawak dikenal dapat meningkatkan nafsu makan, terutama pada anak-anak...',
+                'status' => 1,
+                'tag' => 'kesehatan',
+                'gambar' => 'nafsu_makan.jpg',
+                'jumlah_pembaca' => 520,
+                'publish_date' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+        ]);
+    }
+}

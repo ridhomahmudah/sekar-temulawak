@@ -9,6 +9,10 @@ export default {
         'secondColor': "#1a6526",
         'thirdColor': "#1C6026",
       },
+      boxShadow: {
+        'custom-up': '0 -4px 6px rgba(0, 0, 0, 0.1)', // Shadow ke atas
+        'custom-up-heavy': '0 -6px 8px rgba(0, 0, 0, 0.2)', // Shadow berat ke atas
+      },
       fontFamily:{
         sans: 'Poppins'
       },

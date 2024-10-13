@@ -27,19 +27,14 @@ class SocialiteController extends Controller
 
     public function callback(Request $request)
     {
-        Log::info('Masuk ke callback Google');
-        
-        $authCode = $request->query('code');
-
-        Log::info('Received auth code: ' . $authCode);
-        Log::info('Request State: ' . request('state'));
-        Log::info('Request Code: ' . request('code'));
 
         $socialUser = Socialite::driver('google')->stateless()->user();
+        $user = Pengguna::where('google_id', $socialUser->getId())->exists();
+        $userId = Pengguna::where('google_id', $socialUser->getId())->first();
 
         // Update atau buat pengguna baru
         if (
-            Pengguna::where('google_id', $socialUser->getId())->exists()
+            $user
         ) {
             Pengguna::where('google_id', $socialUser->getId())->update([
                 'Nama' => $socialUser->getName(),
@@ -57,11 +52,12 @@ class SocialiteController extends Controller
             ]);
         }
         $cookie = cookie('athtkn', $socialUser->token, 60, null, null, true, true); // HTTP-only dan secure
+        $idPengguna = $userId->id_Pengguna;
 
         return response()->json([
             'Nama' => $socialUser->getName(),
             'Email' => $socialUser->getEmail(),
-            'google_id' => $socialUser->getId(),
+            'id' => $idPengguna,
             'google_token' => $socialUser->token,
             'login' => true,
         ])->cookie($cookie);

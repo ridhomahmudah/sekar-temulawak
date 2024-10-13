@@ -17,6 +17,8 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         '/api/google',
-        '/auth/google/callback', // atau route lain yang relevan
+        '/auth/google/callback',
+        '/register',
+        '/keranjang/*'
     ];
 }

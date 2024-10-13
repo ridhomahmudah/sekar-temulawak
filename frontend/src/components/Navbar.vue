@@ -1,6 +1,6 @@
 <script>
 import { useAuthStore } from "@/storage/authStore"; // pastikan path sudah benar
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from 'vue-router';
 
 export default {
@@ -11,14 +11,17 @@ export default {
     // Gunakan computed untuk status login
     const isLoggedIn = computed(() => authStore.isAuthenticated);
     const nama = computed(() => authStore.getUser);
-    console.log(nama.value);
 
     const logout = () => {
       // Hapus data pengguna dari localStorage
-      localStorage.removeItem('tkn'); // Menghapus token
-      localStorage.removeItem('nama'); // Menghapus nama
-      localStorage.removeItem('lgn'); // Menghapus nama
-      localStorage.removeItem('user'); // Menghapus nama
+      window.localStorage.removeItem('tkn'); // Menghapus token
+      window.localStorage.removeItem('nama'); // Menghapus nama
+      window.localStorage.removeItem('lgn'); // Menghapus lgn
+      window.localStorage.removeItem('user'); // Menghapus nama
+      window.localStorage.removeItem('id'); // Menghapus id
+
+      authStore.updateUser(null);
+      authStore.setToken(null);
 
       // Redirect ke halaman login atau halaman utama
       router.push('/login'); // Ganti sesuai dengan rute yang Anda inginkan
@@ -49,6 +52,7 @@ export default {
       <a href="/#artikel">Artikel</a>
       <a href="/#about">Tentang Kami</a>
       <RouterLink v-if="isLoggedIn" to="/keranjang">Keranjang</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/keranjang">Pembayaran</RouterLink>
       <RouterLink v-if="!isLoggedIn" to="/login" @click="alertLogin">Keranjang</RouterLink>
     </div>
     <div>
@@ -67,7 +71,7 @@ export default {
         Daftar
       </RouterLink>
       <span v-if="isLoggedIn">Welcome, {{ nama }}</span>
-      <button v-if="isLoggedIn" @click="logout" class="ml-4 px-4 py-2 text-center text-white bg-red-500 rounded-md">
+      <button v-if="isLoggedIn" @click="logout" class="ml-4 px-4 py-2 text-center text-white bg-red-600 rounded-md">
         Logout
       </button>
     </div>

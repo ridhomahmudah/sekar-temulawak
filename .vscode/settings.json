@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "sekar",
+            "database": "${workspaceFolder:sekar-temulawak}/backend-sekar/database/database.sqlite"
+        }
+    ]
+}

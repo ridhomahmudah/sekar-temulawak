@@ -13,9 +13,10 @@ class CreateProdukTable extends Migration
             $table->string('deskripsi', 3000);
             $table->integer('harga');
             $table->integer('stok');
-            $table->char('gambar', 200);
+            $table->string('gambar', 200);
             $table->integer('status');
             $table->integer('kategori');
+            $table->timestamps();
         });
     }
 
