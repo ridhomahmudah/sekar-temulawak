@@ -16,7 +16,7 @@ Route::post('/register', [RegisterController::class, 'register'])->middleware(Ve
 Route::post('/login', [LoginController::class, 'login'])->middleware(VerifyCsrfToken::except('/login'));
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware(VerifyCsrfToken::except('/keranjang'));
-Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware(VerifyCsrfToken::except('/keranjang'));    
+Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware(VerifyCsrfToken::except('/keranjang'));
 Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->middleware(VerifyCsrfToken::except('/keranjang/*'));
 Route::get('/produk', [ProdukController::class, 'index'])->middleware(VerifyCsrfToken::except('/produk'));
 
