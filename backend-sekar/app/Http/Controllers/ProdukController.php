@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk; // Pastikan model Produk di-import
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Models\Produk; // Pastikan model Produk di-import
 
 class ProdukController extends Controller
 {
@@ -38,9 +39,11 @@ class ProdukController extends Controller
         return response()->json($produk);
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        dd($request->all());
+        // Log::info('Request received:', $request->all());
+        // dd($request->all());
+
         return view('admin-produk.insert', [
             'title' => 'Tambah Produk'
         ]);
