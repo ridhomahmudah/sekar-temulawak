@@ -6,6 +6,17 @@
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambahkan Data Produk</h2>
 
             <form action="{{ route('admin-produk.store') }}" method="POST" enctype="multipart/form-data">
+                <input type="" name="_token" value="{{ csrf_token() }}">
+                {{-- @csrf --}}
+                <input type="text" name="test">
+                <button type="submit">tambah</button>
+
+            </form>
+
+
+
+            <form action="{{ route('admin-produk.store') }}" method="POST" enctype="multipart/form-data">
+                {{-- <form action="/admin-produk/tambah-produk" method="POST" enctype="multipart/form-data"> --}}
 
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-4">
@@ -15,6 +26,7 @@
                         <input type="text" name="nama" id="nama"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Temulawak kemasan 500ml" required="">
+                        {{-- <input type="text" name="slug" id="slug" class="hidden"> --}}
                         {{-- @error('nama')
                             <p class="text-red-600">{{ $message }}</p>
                         @enderror --}}
@@ -94,6 +106,13 @@
                         }
                     }
                 </script>
+                {{-- <script>
+                    const nama = document.queryseSelector('#nama');
+                    const slug = document.queryseSelector('#slug');
+                    nama.addEventListener('change', function() {
+                        fetch('')
+                    })
+                </script> --}}
 
                 {{--  --}}
                 <button type="button"
