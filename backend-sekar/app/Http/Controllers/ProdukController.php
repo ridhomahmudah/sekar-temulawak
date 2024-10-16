@@ -7,6 +7,28 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
+    public function admin_index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $produks = Produk::when($search, function ($query, $search) {
+            $query->where('nama', 'LIKE', "%{$search}%")
+                ->orWhere('harga', 'LIKE', "%{$search}%");
+        })->paginate(12);
+
+        return view('admin-produk.index', [
+            'title' => 'Daftar Produk',
+            'produks' => $produks,
+            'search' => $search,
+        ]);
+    }
+
+    public function create()
+    {
+        return view('admin-produk.insert', [
+            'title' => 'Tambah Produk'
+        ]);
+    }
     public function index(Request $request)
     {
         // Mengambil semua produk dari database
@@ -14,5 +36,13 @@ class ProdukController extends Controller
 
         // Mengembalikan response JSON dengan status 200 dan data produk
         return response()->json($produk);
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+        return view('admin-produk.insert', [
+            'title' => 'Tambah Produk'
+        ]);
     }
 }
