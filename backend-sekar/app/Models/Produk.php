@@ -30,7 +30,7 @@ class Produk extends Model
         'stok',
         'gambar',
         // 'status',
-        'kategori',
+        // 'kategori',
     ];
 
     // Jika perlu, bisa menambahkan relasi dengan model lain
