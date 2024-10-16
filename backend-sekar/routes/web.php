@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome', ['title' => 'Home']);
 });
 Route::get('/admin-produk', [ProdukController::class, 'admin_index']);
+
+Route::post('/admin-produk/tambah-produk', [ProdukController::class, 'store'])->name('produk.tambah');
 //route admin
 
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirect']);
