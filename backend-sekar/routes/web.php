@@ -10,13 +10,22 @@ use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
+//route admin
+Route::resource('admin-produk', ProdukController::class);
+
+Route::get('/', function () {
+    return view('welcome', ['title' => 'Home']);
+});
+Route::get('/admin-produk', [ProdukController::class, 'admin_index']);
+//route admin
+
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirect']);
 Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 Route::post('/register', [RegisterController::class, 'register'])->middleware(VerifyCsrfToken::except('/register'));
 Route::post('/login', [LoginController::class, 'login'])->middleware(VerifyCsrfToken::except('/login'));
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->middleware(VerifyCsrfToken::except('/keranjang'));
-Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware(VerifyCsrfToken::except('/keranjang'));    
+Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware(VerifyCsrfToken::except('/keranjang'));
 Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->middleware(VerifyCsrfToken::except('/keranjang/*'));
 Route::get('/produk', [ProdukController::class, 'index'])->middleware(VerifyCsrfToken::except('/produk'));
 
