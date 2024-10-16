@@ -11,14 +11,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
 //route admin
-Route::resource('admin-produk', ProdukController::class);
-
 Route::get('/', function () {
     return view('welcome', ['title' => 'Home']);
 });
+
+Route::resource('admin-produk', ProdukController::class);
+
 Route::get('/admin-produk', [ProdukController::class, 'admin_index']);
 
-Route::post('/admin-produk/tambah-produk', [ProdukController::class, 'store'])->name('produk.tambah');
+// Route::get('/admin-produk/createSlug', [ProdukController::class, 'checkSlug']);
+
+// Route::post('/admin-produk/tambah-produk', [ProdukController::class, 'store'])->name('produk.tambah');
 //route admin
 
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirect']);
