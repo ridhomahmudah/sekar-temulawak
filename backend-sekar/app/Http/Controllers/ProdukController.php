@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Produk; // Pastikan model Produk di-import
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProdukController extends Controller
 {
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Produk::class, 'slug', $request->nama);
+        return response()->json(['slug' => $slug]);
+    }
     public function admin_index(Request $request)
     {
         $search = $request->input('search');
