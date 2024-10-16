@@ -39,13 +39,19 @@ class ProdukController extends Controller
         return response()->json($produk);
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        // Log::info('Request received:', $request->all());
-        // dd($request->all());
+        // Menampilkan semua data yang diterima dari permintaan
+        Log::info('Request received:', $request->all());
 
-        return view('admin-produk.insert', [
-            'title' => 'Tambah Produk'
-        ]);
+        // Memeriksa apakah token CSRF ada
+        if (!$request->session()->has('_token')) {
+            Log::warning('CSRF token is missing!');
+        }
+
+        return response()->json($request->all());
+        // return view('admin-produk.insert', [
+        //     'title' => 'Tambah Produk'
+        // ]);
     }
 }
