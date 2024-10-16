@@ -15,11 +15,12 @@ class Produk extends Model
     // Menentukan kolom yang dapat diisi
     protected $fillable = [
         'nama',
+        'slug',
         'deskripsi',
         'harga',
         'stok',
         'gambar',
-        'status',
+        // 'status',
         'kategori',
     ];
 
