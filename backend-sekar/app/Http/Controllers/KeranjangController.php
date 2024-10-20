@@ -17,6 +17,7 @@ class KeranjangController extends Controller
     public function index(Request $request)
     {
         $idPengguna = $request->header('id_pengguna');
+        Log::info("ID Pengguna: " . $idPengguna);
 
         // Ambil semua item di keranjang untuk pengguna ini
         $keranjangs = Keranjang::with('produk') // Mengambil data produk yang terkait
@@ -67,13 +68,11 @@ class KeranjangController extends Controller
     // Fungsi untuk menghapus produk dari keranjang
     public function destroy($id)
     {
-        \Log::info("Menghapus produk dari keranjang dengan id_keranjang: " . $id);
 
         // Gunakan DB facade untuk menghapus item
         $deleted = DB::table('keranjang')->where('id_produk', $id)->delete();
 
         if ($deleted) {
-            \Log::info("Produk dengan id_keranjang: " . $id . " berhasil dihapus.");
             return response()->json(['message' => 'Produk berhasil dihapus dari keranjang']);
         } else {
             \Log::error("Produk dengan id_keranjang: " . $id . " tidak ditemukan.");

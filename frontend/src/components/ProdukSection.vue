@@ -5,7 +5,7 @@
     </h1>
     <swiper-container :slidesPerView="4" :spaceBetween="40" :freeMode="true" :pagination="{ clickable: true }"
       class="w-full" ref="swiper">
-      <swiper-slide v-for="produk in produkList" :key="produk.id_produk">
+      <swiper-slide v-for="produk in cartStore.produkList" :key="produk.id_produk">
         <div id="card" class="w-[320px] h-[390px] bg-white rounded-3xl drop-shadow-xl">
           <img src="/public/img/produkpng.png" alt="" class="w-full object-cover" />
           <div id="text" class="-translate-y-14 px-6 pt-4 flex flex-col gap-3">
@@ -23,7 +23,6 @@
               <div class="flex items-center gap-3">
                 <iconify-icon icon="mdi:cart" width="1.4rem" height="1.4rem" class="hover"
                   style="color: #f44336; cursor: pointer;" @click="addToCart(produk)"></iconify-icon>
-                <!-- Icon cart untuk menambah ke keranjang -->
                 <button
                   class="bg-red-700 px-4 hover:bg-red-900 transition-colors duration-150 hover:ease-in text-white rounded-md">Beli</button>
               </div>
@@ -32,72 +31,42 @@
         </div>
       </swiper-slide>
     </swiper-container>
-
-    <!-- Toast notification -->
-    <transition name="fade">
-      <div v-if="showToast" class="fixed bottom-10 right-10 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
-        {{ toastMessage }}
-      </div>
-    </transition>
   </section>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import {onMounted } from 'vue';
+import { useCartStore } from '@/storage/cartStore';
 
 export default {
+  
   setup() {
-    const produkList = ref([]);
 
-    const fetchProduk = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/produk');
-        produkList.value = response.data;
-      } catch (error) {
-        console.error('Error fetching produk:', error);
-      }
-    };
+    const cartStore = useCartStore();
 
-    const addToCart = async (produk) => {
-      try {
-        const userId = localStorage.getItem('id'); // Mendapatkan id dari localStorage
-        if (!userId) {
-          throw new Error('User ID tidak ditemukan di localStorage');
-        }
+    const fetchProduk = () => cartStore.fetchProduk();
 
-        const response = await axios.post('http://localhost:8000/keranjang', {
-          id_produk: produk.id_produk,
-          kuantitas: 1,
-          id_pengguna: userId,
-        });
-
-        if (response.status === 200 || response.status === 201) { // Memastikan berhasil
-          alert('Produk Berhasil Ditambahkan Ke Keranjang')
-        }
-      } catch (error) {
-        console.error('Error menambahkan produk ke keranjang:', error);
-      }
-    };
+    const addToCart = (produk) => cartStore.addToCart(produk);
 
     onMounted(() => {
       fetchProduk();
     });
 
     return {
-      produkList,
       addToCart,
+      cartStore,
     };
   },
 
 
 
   mounted() {
+
     // Akses elemen Swiper setelah komponen terpasang
     const swiperEl = this.$refs.swiper;
+
     // Akses elemen pagination di dalam shadowRoot
-    const paginationEl =
-      swiperEl.shadowRoot.querySelector(".swiper-pagination");
+    const paginationEl = swiperEl.shadowRoot.querySelector(".swiper-pagination");
 
     paginationEl.style.position = "static";
     paginationEl.style.marginTop = "50px";

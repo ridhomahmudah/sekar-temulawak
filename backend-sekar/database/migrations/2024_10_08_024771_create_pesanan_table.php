@@ -11,7 +11,7 @@ class CreatePesananTable extends Migration
             $table->id('id_pesanan');
             $table->date('tanggal');
             $table->integer('metode')->nullable();
-            $table->enum('status', ['PENDING', 'BELUMDIBAYAR', 'SUDAHDIBAYAR', 'DIBATALKAN'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'MENUNGGU PEMBAYARAN', 'LUNAS', 'DIBATALKAN'])->default('PENDING');
             $table->integer('total_bayar');
             $table->timestamps();
 

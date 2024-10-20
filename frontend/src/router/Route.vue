@@ -6,7 +6,9 @@ import Register from "@/pages/Register.vue";
 import LoginCallback from "@/components/LoginCallback.vue";
 import Keranjang from "@/pages/Keranjang.vue";
 import BuatPesanan from "@/pages/BuatPesanan.vue";
-import ArtikelDetail from "@/pages/ArtikelDetail.vue"; // Pastikan Anda membuat dan mengimpor komponen ini
+import ArtikelDetail from "@/pages/ArtikelDetail.vue";
+import Pembayaran from "@/pages/Pembayaran.vue";
+import BayarPesanan from "@/pages/BayarPesanan.vue";
 
 const routes = [
   { path: "/", component: HomePage, name: "home" },
@@ -14,7 +16,9 @@ const routes = [
   { path: "/register", component: Register, name: "register" },
   { path: "/auth/google/callback", component: LoginCallback, name: "login-callback" },
   { path: "/keranjang", component: Keranjang, name: "keranjang" },
-  { path: "/pesanan", component: BuatPesanan, name: "pesanan" },
+  { path: "/pembayaran", component: Pembayaran, name: "pembayaran" },
+  { path: "/bayar/pesanan/:id", component: BayarPesanan, name: "bayar-pesanan" },
+  { path: "/buat/pesanan/:id", component: BuatPesanan, name: "pesanan" },
   { path: "/artikel/:id", component: ArtikelDetail, name: "artikel-detail" }, // Route untuk detail artikel
 ];
 

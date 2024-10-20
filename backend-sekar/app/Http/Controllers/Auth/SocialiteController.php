@@ -13,12 +13,10 @@ class SocialiteController extends Controller
     public function redirect()
     {
         try {
-            Log::info('Memulai redirect Google');
-            $url = Socialite::driver('google')->redirect()->getTargetUrl();
 
-            Log::info('URL redirect Google: ' . $url);
-            Log::info('State parameter: ' . session('state'));
+            $url = Socialite::driver('google')->redirect()->getTargetUrl();
             return response()->json(['redirect_url' => $url]);
+            
         } catch (\Exception $e) {
             Log::error('Error saat redirect Google: ' . $e->getMessage());
             return response()->json(['error' => 'Tidak dapat memulai autentikasi Google: ' . $e->getMessage()], 500);
@@ -51,7 +49,8 @@ class SocialiteController extends Controller
                 'google_refresh_token' => $socialUser->refreshtoken,
             ]);
         }
-        $cookie = cookie('athtkn', $socialUser->token, 60, null, null, true, true); // HTTP-only dan secure
+        // $cookie = cookie('athtkn', $socialUser->token, 60, null, null, true, true); // HTTP-only dan secure
+        
         $idPengguna = $userId->id_Pengguna;
 
         return response()->json([
@@ -60,7 +59,7 @@ class SocialiteController extends Controller
             'id' => $idPengguna,
             'google_token' => $socialUser->token,
             'login' => true,
-        ])->cookie($cookie);
+        ]);
 
     }
 }

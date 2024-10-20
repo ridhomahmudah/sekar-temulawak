@@ -20,9 +20,10 @@ Route::post('/keranjang', [KeranjangController::class, 'store'])->middleware(Ver
 Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->middleware(VerifyCsrfToken::except('/keranjang/*'));
 Route::get('/produk', [ProdukController::class, 'index'])->middleware(VerifyCsrfToken::except('/produk'));
 
-Route::post('/pesanan/create', [PesananController::class, 'create'])->middleware(VerifyCsrfToken::except('/pesanan/create'));
-Route::post('/pesanan/confirm', [PesananController::class, 'confirm'])->middleware(VerifyCsrfToken::except('/pesanan'));
-Route::post('/pesanan/cancel', [PesananController::class, 'cancel'])->middleware(VerifyCsrfToken::except('/pesanan'));
+Route::get('/pesanan', [PesananController::class, 'index'])->middleware(VerifyCsrfToken::except('/pesanan'));
+Route::post('/pesanan/confirm/{id}', [PesananController::class, 'confirm'])->middleware(VerifyCsrfToken::except('/pesanan'));
+Route::post('/pesanan/create', [PesananController::class, 'create'])->middleware(VerifyCsrfToken::except('/pesanan/create/*'));
+Route::post('/pesanan/cancel/{id}', [PesananController::class, 'cancel'])->middleware(VerifyCsrfToken::except('/pesanan/*'));
 
 Route::get('/artikel', [ArtikelController::class, 'index'])->middleware(VerifyCsrfToken::except('/artikel'));
 Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->middleware(VerifyCsrfToken::except('/artikel'));
