@@ -1,13 +1,13 @@
 <template>
   <section class="px-36 pt-24 relative">
-    <div class="shadow-xl sm:rounded-lg">
+    <div v-if="cartStore.keranjangList.length > 0" class="shadow-xl sm:rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs shadow-xl text-white uppercase bg-primaryColor dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <td class="w-4 p-4">
               <div class="flex items-center">
-                <input id="checkbox-all" type="checkbox" :checked="cartStore.allSelected" @change="toggleSelectAll"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <input id="checkbox-all" type="checkbox" :checked="cartStore.allSelected" @change="toggleSelectAll()"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
                 <label for="checkbox-all" class="sr-only">checkbox</label>
               </div>
             </td>
@@ -19,14 +19,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="produk in cartStore.produkList" :key="produk.id_produk"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <tr v-for="produk in cartStore.keranjangList" :key="produk.id_produk" class="bg-white border-b">
             <td class="w-4 p-4">
               <div class="flex items-center">
                 <input type="checkbox" @change="toggleSelectProduct(produk.id_produk)"
                   :checked="cartStore.selectedProducts.includes(produk.id_produk)"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label class="sr-only">checkbox</label>
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
               </div>
             </td>
             <td class="flex items-center px-6 py-4">
@@ -35,7 +33,7 @@
                 <div class="font-semibold">{{ produk.produk.nama }}</div>
               </div>
             </td>
-            <td class="px-6 py-4"> Rp {{ produk.produk.harga.toLocaleString() }}</td>
+            <td class="px-6 py-4">Rp {{ produk.produk.harga.toLocaleString() }}</td>
             <td class="px-6 py-4">
               <form class="w-max">
                 <div class="relative flex items-center max-w-[8rem]">
@@ -47,7 +45,7 @@
                         d="M1 1h16" />
                     </svg>
                   </button>
-                  <input type="text" v-model.number="produk.jumlah" @change="updateQuantity(produk, produk.jumlah)"
+                  <input type="text" v-model.number="produk.jumlah"
                     class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="999" required />
                   <button type="button" @click="increment(produk)"
@@ -74,49 +72,28 @@
         </tbody>
       </table>
     </div>
-    <BottomTable />
+    <div v-else class="text-center py-20">
+      <p class="text-lg font-semibold text-gray-500">Tidak ada produk di keranjang</p>
+    </div>
+    <BottomTable v-if="cartStore.keranjangList.length > 0" />
   </section>
 </template>
 
 <script setup>
 import { onBeforeMount } from 'vue';
-import { useCartStore } from '@/storage/cartStore'; // Impor store Pinia
+import { useCartStore } from '@/storage/cartStore';
 import BottomTable from '@/components/BottomKeranjang.vue';
 
-const cartStore = useCartStore(); // Akses store Pinia
+const cartStore = useCartStore();
 
-// Fetch data produk ketika komponen dimount
 onBeforeMount(() => {
-  cartStore.fetchProduk();
+  cartStore.fetchKeranjang(); // Fetch produk saat page di-load
 });
 
-// Fungsi untuk memilih/deselect semua produk
-const toggleSelectAll = () => {
-  cartStore.toggleSelectAll();
-};
-
-// Fungsi untuk memilih/deselect produk individu
-const toggleSelectProduct = (productId) => {
-  cartStore.toggleSelectProduct(productId);
-};
-
-// Fungsi untuk menambah kuantitas produk
-const increment = (produk) => {
-  cartStore.increment(produk);
-};
-
-// Fungsi untuk mengurangi kuantitas produk
-const decrement = (produk) => {
-  cartStore.decrement(produk);
-};
-
-// Fungsi untuk memperbarui kuantitas produk
-const updateQuantity = (produk, newQuantity) => {
-  cartStore.updateQuantity(produk, newQuantity);
-};
-
-// Fungsi untuk menghapus produk dari keranjang
-const deleteProduk = (produk) => {
-  cartStore.deleteProduk(produk);
-};
+const toggleSelectAll = () => cartStore.toggleSelectAll();
+const toggleSelectProduct = (productId) => cartStore.toggleSelectProduct(productId);
+const increment = (produk) => cartStore.increment(produk);
+const decrement = (produk) => cartStore.decrement(produk);
+const updateQuantity = (produk) => cartStore.updateQuantity(produk);
+const deleteProduk = (produk) => cartStore.deleteProduk(produk);
 </script>

@@ -52,7 +52,7 @@ export default {
       <a href="/#artikel">Artikel</a>
       <a href="/#about">Tentang Kami</a>
       <RouterLink v-if="isLoggedIn" to="/keranjang">Keranjang</RouterLink>
-      <RouterLink v-if="isLoggedIn" to="/keranjang">Pembayaran</RouterLink>
+      <RouterLink v-if="isLoggedIn" to="/pembayaran">Pembayaran</RouterLink>
       <RouterLink v-if="!isLoggedIn" to="/login" @click="alertLogin">Keranjang</RouterLink>
     </div>
     <div>
